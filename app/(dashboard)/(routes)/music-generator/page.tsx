@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import Heading from "@/components/heading";
-import { MessageSquare, MusicIcon } from "lucide-react";
+import { MessageSquare, Music3Icon, MusicIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { formSchema } from "./constants";
@@ -57,7 +57,7 @@ export default function MusicPage() {
             bgcolor="bg-emerald-500/10"/>
             <div className="px-4 lg:px-8">
                 <div>
-                    <Form {...form}>
+                    {/* <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="
@@ -94,16 +94,20 @@ export default function MusicPage() {
                                 Generate
                             </Button>
                         </form>
-                    </Form>
+                    </Form> */}
                 </div>
-                <div className="space-y-4 mt-4 text-sm">
-                    {isLoading && (
+                <div className="space-y-4 mt-4 text-6xl">
+                    {/* {isLoading && (
                         <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
                             <Loader />
                         </div>
-                    )}
-                    {!music && !isLoading && (
+                    )} */}
+                    {/* {!music && !isLoading && (
                         <Empty label="No music generated."/>
+                    )} */}
+                    {!music && !isLoading && (
+                        <Empty label="Coming Soon!" />
+                        
                     )}
                     {music && (
                         <audio controls className="w-full mt-8">
