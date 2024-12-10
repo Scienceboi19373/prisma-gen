@@ -19,8 +19,10 @@ import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { useProModel } from "@/hooks/use-pro-model";
 
 export default function ImageGenerator() {
+    const proModel = useProModel()
     const router= useRouter()
     const [images, setImages]=useState<string[]>([])
     const form=useForm<z.infer<typeof formSchema>>(
@@ -46,8 +48,9 @@ export default function ImageGenerator() {
             form.reset()
 
         } catch (error: any) {
-            //TODO: Open Pro Modal
-            console.log(error)
+            if (error?.response?.status === 403) {
+                proModel.onOpen()
+            }
         } finally {
             router.refresh()
         }

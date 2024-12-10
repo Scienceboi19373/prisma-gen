@@ -16,8 +16,10 @@ import { useState } from "react";
 import axios from "axios";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
+import { useProModel } from "@/hooks/use-pro-model";
 
 export default function MusicPage() {
+    const proModel = useProModel()
     const router= useRouter()
     const [music, setMusic] =useState<string>()
     const form=useForm<z.infer<typeof formSchema>>(
@@ -40,8 +42,9 @@ export default function MusicPage() {
             form.reset()
 
         } catch (error: any) {
-            //TODO: Open Pro Modal
-            console.log(error)
+            if (error?.response?.status === 403) {
+                proModel.onOpen()
+            }
         } finally {
             router.refresh()
         }

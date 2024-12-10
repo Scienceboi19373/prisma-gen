@@ -19,8 +19,10 @@ import Loader from "@/components/loader";
 import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/user-avatar";
 import Botavatar from "@/components/bot-avatar";
+import { useProModel } from "@/hooks/use-pro-model";
 
 export default function Conversation() {
+    const proModel=useProModel()
     const router= useRouter()
     const [messages, setMessages] =useState<ChatCompletionRequestMessage[]>([])
     const form=useForm<z.infer<typeof formSchema>>(
@@ -51,8 +53,9 @@ export default function Conversation() {
             form.reset()
 
         } catch (error: any) {
-            //TODO: Open Pro Modal
-            console.log(error)
+            if (error?. response?.status ===403){
+                proModel.onOpen()
+            }
         } finally {
             router.refresh()
         }
