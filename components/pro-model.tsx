@@ -7,9 +7,26 @@ import { Card } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useProModel } from "@/hooks/use-pro-model";
+import axios from "axios";
+import { useState } from "react";
 
 export default function ProModel() {
     const proModel = useProModel()
+    const [loading, setLoading] = useState(false)
+
+    const onSubscribe= async() => {
+        try {
+            setLoading(true)
+            const response= await axios.get("/api/stripe")
+
+            window.location.href = response.data.url
+        } catch(error) {
+            console.log(error, "STRIPE_CLIENT_ERROR")
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const tools=[
         {
           label:"Conversation",
@@ -80,6 +97,7 @@ export default function ProModel() {
                 </DialogHeader>
                 <DialogFooter>
                     <Button
+                        onClick={onSubscribe}
                         size="lg"
                         variant="gradient"
                         className="w-full"
