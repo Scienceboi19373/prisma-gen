@@ -51,7 +51,7 @@ export default function DashboardPage() {
           All the Tools, All the Fun!
           </h2>
           <p className="text-muted-foreground font-light text-sm md:text-lg text-center">
-          Welcome to your creative playground! Whether you’re here to chat it up, code something cool, drop some beats, craft epic visuals, or roll out cinematic gold - we've got you covered. Dive in and let the magic happen, one click at a time!
+          Welcome to your creative playground! Whether you're here to chat it up, code something cool, drop some beats, craft epic visuals, or roll out cinematic gold - we've got you covered. Dive in and let the magic happen, one click at a time!
           </p>
         </div>
         <div className="px-4 md:px-20 lg:px-32 space-y-4">

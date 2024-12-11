@@ -22,6 +22,7 @@ export default function SubscriptionButton({
 
             window.location.href = response.data.url
         } catch (error) {
+            console.log("[SUBSCRIPTION_ERROR]", error);
             toast.error("something went wrong")
         } finally {
             setLoading(false)

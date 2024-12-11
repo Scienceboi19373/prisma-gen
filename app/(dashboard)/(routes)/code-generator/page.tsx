@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import Heading from "@/components/heading";
-import { Code, MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { formSchema } from "./constants";
@@ -132,12 +132,12 @@ export default function CodePage() {
                                 {message.role ==="user" ? <UserAvatar />: <Botavatar /> }
                                 <ReactMarkdown 
                                     components={{
-                                        pre: ({ node, ...props }) => (
+                                        pre: ({ /*node,*/ ...props }) => (
                                             <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
                                                 <pre {...props} />
                                             </div>
                                         ),
-                                        code: ({ node, ...props }) => (
+                                        code: ({ /*node,*/ ...props }) => (
                                             <code className="bg-black/10 rounded-lg p-1" {...props} />
                                         )
                                     }}

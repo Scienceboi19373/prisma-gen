@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import Heading from "@/components/heading";
-import { MessageSquare, MusicIcon, VideoIcon } from "lucide-react";
+import { VideoIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { formSchema } from "./constants";
@@ -37,7 +37,7 @@ export default function VideoPage() {
         try{
             setVideo(undefined)
 
-            const response =await axios.post("/api/video-generator")
+            const response =await axios.post("/api/video-generator", values)
 
             setVideo(response.data[0])
             form.reset()
@@ -63,7 +63,7 @@ export default function VideoPage() {
             bgcolor="bg-orange-700/10"/>
             <div className="px-4 lg:px-8">
                 <div>
-                    {/* <Form {...form}>
+                    <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="
@@ -100,14 +100,14 @@ export default function VideoPage() {
                                 Generate
                             </Button>
                         </form>
-                    </Form> */}
+                    </Form>
                 </div>
                 <div className="space-y-4 mt-4 text-6xl">
-                    {/* {isLoading && (
+                    {isLoading && (
                         <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
                             <Loader />
                         </div>
-                    )} */}
+                    )}
                     {!video && !isLoading && (
                         <Empty label="Video Generator will be Back Soon!"/>
                     )}

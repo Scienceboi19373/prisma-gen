@@ -29,7 +29,7 @@ const testimonials = [
     },
 ]
 
-export default function() {
+export default function LandingContent() {
     return (
         <div className="px-10 pb-20">
             <h2 className="text-center text-4xl text-white font-extrabold mb-10">
