@@ -20,6 +20,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { useProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function ImageGenerator() {
     const proModel = useProModel()
@@ -50,6 +51,8 @@ export default function ImageGenerator() {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 proModel.onOpen()
+            } else {
+                toast.error("something went wrong")
             }
         } finally {
             router.refresh()

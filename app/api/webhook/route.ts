@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         )
 
         if(!session?.metadata?.userId) {
-            return new NextResponse("USer id is required", {status:400})
+            return new NextResponse("User id is required", {status:400})
         }
 
         await prismadb.userSubscription.create({

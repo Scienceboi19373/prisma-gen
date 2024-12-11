@@ -20,8 +20,12 @@ import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/user-avatar";
 import Botavatar from "@/components/bot-avatar";
 import ReactMarkdown from "react-markdown"
+import ProModel from "@/components/pro-model";
+import { useProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function CodePage() {
+    const proModel = useProModel()
     const router= useRouter()
     const [messages, setMessages] =useState<ChatCompletionRequestMessage[]>([])
     const form=useForm<z.infer<typeof formSchema>>(
@@ -52,8 +56,11 @@ export default function CodePage() {
             form.reset()
 
         } catch (error: any) {
-            //TODO: Open Pro Modal
-            console.log(error)
+            if(error?.response?.status === 403) {
+                proModel.onOpen()
+            } else {
+                toast.error("something went wrong")
+            }
         } finally {
             router.refresh()
         }

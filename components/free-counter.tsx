@@ -10,10 +10,12 @@ import { useProModel } from "@/hooks/use-pro-model"
 
 interface FreeCounterProps {
     apiLimitCount: number
+    isPro: boolean
 }
 
 export default function FreeCounter({
     apiLimitCount=0,
+    isPro = false
 }: FreeCounterProps) {
     const [mounted, setMounted] = useState(false)
     const promodel = useProModel()
@@ -25,6 +27,11 @@ export default function FreeCounter({
     if(!mounted) {
         return null
     }
+
+    if(isPro) {
+        return null
+    }
+    
     return (
         <div className="px-3">
             <Card className="bg-white/10 border-0">

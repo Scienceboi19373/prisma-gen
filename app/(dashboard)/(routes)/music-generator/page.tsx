@@ -17,6 +17,7 @@ import axios from "axios";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
 import { useProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function MusicPage() {
     const proModel = useProModel()
@@ -44,6 +45,8 @@ export default function MusicPage() {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 proModel.onOpen()
+            } else {
+                toast.error("something went wrong")
             }
         } finally {
             router.refresh()
