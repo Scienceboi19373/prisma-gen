@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 import { useProModel } from "@/hooks/use-pro-model";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ProModel() {
     const proModel = useProModel()
@@ -21,7 +22,7 @@ export default function ProModel() {
 
             window.location.href = response.data.url
         } catch(error) {
-            console.log(error, "STRIPE_CLIENT_ERROR")
+            toast.error("Something went wrong")
         } finally {
             setLoading(false)
         }

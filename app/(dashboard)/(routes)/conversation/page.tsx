@@ -68,7 +68,7 @@ export default function Conversation() {
         <div>
             <Heading 
             title="Conversation"
-            description="Our most advanced conversation model"
+            description="Your friendly digital sidekick, here to help, chat, and keep the good vibes rolling!"
             icon={MessageSquare}
             iconColor="text-violet-500"
             bgcolor="bg-violet-500/10"/>

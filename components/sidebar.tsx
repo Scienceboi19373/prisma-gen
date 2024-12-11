@@ -76,7 +76,7 @@ export default function Sidebar({
                         />
                     </div>
                     <h1 className={cn("text-2xl font-bold",montserrat.className)}>
-                        Skibidi AI
+                        Prisma Gen
                     </h1>
                 </Link>
                 <div className="space-y-1">

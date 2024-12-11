@@ -112,7 +112,7 @@ export default function MusicPage() {
                         <Empty label="No music generated."/>
                     )} */}
                     {!music && !isLoading && (
-                        <Empty label="Coming Soon!" />
+                        <Empty label="Music Generator will be Back Soon!" />
                         
                     )}
                     {music && (

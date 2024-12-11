@@ -63,7 +63,7 @@ export default function VideoPage() {
             bgcolor="bg-orange-700/10"/>
             <div className="px-4 lg:px-8">
                 <div>
-                    <Form {...form}>
+                    {/* <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="
@@ -100,16 +100,16 @@ export default function VideoPage() {
                                 Generate
                             </Button>
                         </form>
-                    </Form>
+                    </Form> */}
                 </div>
-                <div className="space-y-4 mt-4 text-sm">
-                    {isLoading && (
+                <div className="space-y-4 mt-4 text-6xl">
+                    {/* {isLoading && (
                         <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
                             <Loader />
                         </div>
-                    )}
+                    )} */}
                     {!video && !isLoading && (
-                        <Empty label="No video generated."/>
+                        <Empty label="Video Generator will be Back Soon!"/>
                     )}
                     {video && (
                         <video className ="w-full aspect-video mt-8 rounded-lg border bg-black" controls>

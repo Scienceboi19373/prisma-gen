@@ -48,10 +48,10 @@ export default function DashboardPage() {
       <div>
         <div className="mb-8 space-y-4">
           <h2 className="text-2xl md:text-4xl font-bold text-center">
-            Explore the power of brainrot
+          All the Tools, All the Fun!
           </h2>
           <p className="text-muted-foreground font-light text-sm md:text-lg text-center">
-            Chat with the smartest Sigma - Experience the power of Skibidi Toilet
+          Welcome to your creative playground! Whether you’re here to chat it up, code something cool, drop some beats, craft epic visuals, or roll out cinematic gold - we've got you covered. Dive in and let the magic happen, one click at a time!
           </p>
         </div>
         <div className="px-4 md:px-20 lg:px-32 space-y-4">
