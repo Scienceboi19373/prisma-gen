@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { auth } from "@clerk/nextjs/server"
 
 import prismadb from "./prismadb"
