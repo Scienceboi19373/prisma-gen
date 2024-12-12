@@ -36,33 +36,64 @@ export default function Conversation() {
     )
 
     const isLoading=form.formState.isSubmitting;
-    const onSubmit= async (values: z.infer<typeof formSchema>) => {
-        try{
-            const userMessage: ChatCompletionRequestMessage={
-                role:"user",
-                content:values.prompt,
-            }
+    // const onSubmit= async (values: z.infer<typeof formSchema>) => {
+    //     try{
+    //         const userMessage: ChatCompletionRequestMessage={
+    //             role:"user",
+    //             content:values.prompt,
+    //         }
 
-            const newMessages = [...messages,userMessage]
+    //         const newMessages = [...messages,userMessage]
 
-            const response =await axios.post("/api/conversation", {
+    //         const response =await axios.post("/api/conversation", {
+    //             messages: newMessages,
+    //         })
+
+    //         setMessages((current)=>[...current, userMessage, response.data])
+
+    //         form.reset()
+
+    //     } catch (error: any) {
+    //         if (error?. response?.status ===403){
+    //             proModel.onOpen()
+    //         } else {
+    //             toast.error("something went wrong")
+    //         }
+    //     } finally {
+    //         router.refresh()
+    //     }
+    // };
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            const userMessage: ChatCompletionRequestMessage = {
+                role: "user",
+                content: values.prompt,
+            };
+    
+            const newMessages = [...messages, userMessage];
+    
+            const response = await axios.post("/api/conversation", {
                 messages: newMessages,
-            })
-
-            setMessages((current)=>[...current, userMessage, response.data])
-
-            form.reset()
-
-        } catch (error: any) {
-            if (error?. response?.status ===403){
-                proModel.onOpen()
+            });
+    
+            setMessages((current) => [...current, userMessage, response.data]);
+    
+            form.reset();
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 403) {
+                    proModel.onOpen();
+                } else {
+                    toast.error("Something went wrong");
+                }
             } else {
-                toast.error("something went wrong")
+                toast.error("An unexpected error occurred");
             }
         } finally {
-            router.refresh()
+            router.refresh();
         }
     };
+    
 
     return(
         <div>

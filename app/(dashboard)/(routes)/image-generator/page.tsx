@@ -37,26 +37,50 @@ export default function ImageGenerator() {
     )
 
     const isLoading=form.formState.isSubmitting;
-    const onSubmit= async (values: z.infer<typeof formSchema>) => {
-        try{
-            setImages([])
+    // const onSubmit= async (values: z.infer<typeof formSchema>) => {
+    //     try{
+    //         setImages([])
 
-            const response =await axios.post("/api/image-generator",values)
-            const urls=response.data.map((image: {url: string}) => image.url)
+    //         const response =await axios.post("/api/image-generator",values)
+    //         const urls=response.data.map((image: {url: string}) => image.url)
 
-            setImages(urls)
-            form.reset()
+    //         setImages(urls)
+    //         form.reset()
 
-        } catch (error: any) {
-            if (error?.response?.status === 403) {
-                proModel.onOpen()
+    //     } catch (error: any) {
+    //         if (error?.response?.status === 403) {
+    //             proModel.onOpen()
+    //         } else {
+    //             toast.error("something went wrong")
+    //         }
+    //     } finally {
+    //         router.refresh()
+    //     }
+    // };
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            setImages([]);
+    
+            const response = await axios.post("/api/image-generator", values);
+            const urls = response.data.map((image: { url: string }) => image.url);
+    
+            setImages(urls);
+            form.reset();
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 403) {
+                    proModel.onOpen();
+                } else {
+                    toast.error("Something went wrong");
+                }
             } else {
-                toast.error("something went wrong")
+                toast.error("An unexpected error occurred");
             }
         } finally {
-            router.refresh()
+            router.refresh();
         }
     };
+
 
     return(
         <div>

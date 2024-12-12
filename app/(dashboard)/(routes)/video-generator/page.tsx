@@ -20,47 +20,52 @@ import { useProModel } from "@/hooks/use-pro-model";
 import toast from "react-hot-toast";
 
 export default function VideoPage() {
-    const proModel = useProModel()
-    const router= useRouter()
-    const [video, setVideo] =useState<string>()
-    const form=useForm<z.infer<typeof formSchema>>(
-        {
-            resolver: zodResolver(formSchema),
-            defaultValues: {
-                prompt:""
-            }
-        }
-    )
+    const proModel = useProModel();
+    const router = useRouter();
+    const [video, setVideo] = useState<string>();
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            prompt: "",
+        },
+    });
 
-    const isLoading=form.formState.isSubmitting;
-    const onSubmit= async (values: z.infer<typeof formSchema>) => {
-        try{
-            setVideo(undefined)
+    const isLoading = form.formState.isSubmitting;
 
-            const response =await axios.post("/api/video-generator", values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            setVideo(undefined);
 
-            setVideo(response.data[0])
-            form.reset()
+            const response = await axios.post("/api/video-generator", values);
 
-        } catch (error: any) {
-            if (error?.response?.status === 403) {
-                proModel.onOpen()
+            setVideo(response.data[0]);
+            form.reset();
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                // Axios-specific error handling
+                if (error.response?.status === 403) {
+                    proModel.onOpen();
+                } else {
+                    toast.error("Something went wrong");
+                }
             } else {
-                toast.error("something went wrong")
+                // Generic error fallback
+                toast.error("An unexpected error occurred");
             }
         } finally {
-            router.refresh()
+            router.refresh();
         }
     };
 
-    return(
+    return (
         <div>
-            <Heading 
-            title="Video Generator"
-            description="Lights, camera, action - no crew needed! Generate epic videos in no time"
-            icon={VideoIcon}
-            iconColor="text-orange-700"
-            bgcolor="bg-orange-700/10"/>
+            <Heading
+                title="Video Generator"
+                description="Lights, camera, action - no crew needed! Generate epic videos in no time"
+                icon={VideoIcon}
+                iconColor="text-orange-700"
+                bgcolor="bg-orange-700/10"
+            />
             <div className="px-4 lg:px-8">
                 <div>
                     <Form {...form}>
@@ -79,12 +84,12 @@ export default function VideoPage() {
                                 gap-2
                             "
                         >
-                            <FormField 
+                            <FormField
                                 name="prompt"
-                                render={({field}) => (
+                                render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-10">
                                         <FormControl className="m-0 p-0">
-                                            <Input 
+                                            <Input
                                                 className="border-0 outline-none
                                                 focus-visible:ring-0
                                                 focus-visible:ring-transparent"
@@ -96,7 +101,10 @@ export default function VideoPage() {
                                     </FormItem>
                                 )}
                             />
-                            <Button className="col-span-12 lg:col-span-2 w-full" disabled={isLoading}>
+                            <Button
+                                className="col-span-12 lg:col-span-2 w-full"
+                                disabled={isLoading}
+                            >
                                 Generate
                             </Button>
                         </form>
@@ -109,15 +117,18 @@ export default function VideoPage() {
                         </div>
                     )}
                     {!video && !isLoading && (
-                        <Empty label="Video Generator will be Back Soon!"/>
+                        <Empty label="Video Generator will be Back Soon!" />
                     )}
                     {video && (
-                        <video className ="w-full aspect-video mt-8 rounded-lg border bg-black" controls>
+                        <video
+                            className="w-full aspect-video mt-8 rounded-lg border bg-black"
+                            controls
+                        >
                             <source src={video} />
                         </video>
                     )}
                 </div>
             </div>
         </div>
-    )
+    );
 }
