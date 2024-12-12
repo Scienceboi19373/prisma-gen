@@ -4,13 +4,13 @@ import * as z from "zod";
 import Heading from "@/components/heading";
 import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
-
+// import { AxiosError } from "axios";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChatCompletionRequestMessage } from "openai";
 import axios from "axios";
@@ -25,7 +25,7 @@ import toast from "react-hot-toast";
 
 export default function CodePage() {
     const proModel = useProModel()
-    const router= useRouter()
+    // const router= useRouter()
     const [messages, setMessages] =useState<ChatCompletionRequestMessage[]>([])
     const form=useForm<z.infer<typeof formSchema>>(
         {
@@ -54,14 +54,16 @@ export default function CodePage() {
 
             form.reset()
 
-        } catch (error: any) {
-            if(error?.response?.status === 403) {
-                proModel.onOpen()
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 403) {
+                    proModel.onOpen();
+                } else {
+                    toast.error("Something went wrong");
+                }
             } else {
-                toast.error("something went wrong")
+                toast.error("An unexpected error occurred");
             }
-        } finally {
-            router.refresh()
         }
     };
 
